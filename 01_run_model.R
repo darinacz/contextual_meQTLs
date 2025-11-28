@@ -28,7 +28,7 @@ comb<-fread("../../01_meQTLs/cpg_snp.txt",sep="\t",header=T)
 bim<-fread("become_final_249.bim",sep="\t",header=F)
 
 #####calculate GxE model
-#this is set-up as array job in SLURM, 1.000.000 combinations are run in one batch 
+#this is set-up as array job in SLURM, 1.000.000 combinations are ran in one batch 
 #cov: PCs, BCCs, sex, age
 
 slurm_arrayid   <- Sys.getenv('SLURM_ARRAY_TASK_ID')
