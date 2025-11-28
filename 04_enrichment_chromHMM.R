@@ -1,5 +1,3 @@
-library(ggplot2)
-
 #enrichment for chromHMM states
 setwd("/Users/darina/Contextual_meQTLs/chromHMM/")
 
