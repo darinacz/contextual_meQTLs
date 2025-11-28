@@ -32,6 +32,6 @@ table(cat_all$category)
 index<-(which(cat_all$CpG.site %in% cpgs_initial))
 table(cat_all$category[index])
 
-#comparisons for each domain were run via prop.test
+#comparisons for each domain via prop.test
 
 
