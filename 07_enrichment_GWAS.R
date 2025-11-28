@@ -47,6 +47,6 @@ gwas_initial<-merge(gwas_initial,cat,by.x="trait",by.y="Trait")
 table(gwas_top$Category)
 table(gwas_inital$Category)
 
-#comparisons for each domain were then run via prop.test
+#comparisons for each domain via prop.test
 
 
