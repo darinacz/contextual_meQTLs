@@ -1,4 +1,4 @@
-#run contmeQTLs in one cohort
+#run contmeQTLs per cohort
 #BeCOME cohort as example
 
 require(snpStats)
