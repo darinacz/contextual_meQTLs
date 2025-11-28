@@ -7,7 +7,7 @@ length(unique(cpgs$CpG)) #n=7,195 CpGs
 index<-which(all$CpG %in% cpgs$CpG) 
 length(unique(all$CpG[index])) #n=411 CpGs out of 5,115 CpGs
 
-# is more than expected by chance?
+#is this more than expected by chance?
 #for this we need the full list
 all_CpGs<-read.table("all_CpGs.txt",sep="\t",header=T) #this is the list of all tested CpGs (available in at least three of the six cohorts)
 all_CpGs<-unique(all_CpGs) #n=155,640 CpGs
