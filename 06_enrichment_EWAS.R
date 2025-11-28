@@ -53,7 +53,7 @@ ewas_initial<-merge(ewas_initial,cat,by.x="StudyID",by.y="Trait")
 table(ewas_top$Category)
 table(ewas_inital$Category)
 
-#comparisons for each domain were run via prop.test
+#comparisons for each domain via prop.test
 
 
 
