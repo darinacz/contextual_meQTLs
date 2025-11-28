@@ -91,7 +91,7 @@ cpg_location_file_path <- file.path(base_dir, cpg_location_file_name)
 
 output_file_name_cis = "eqtm_cis.txt"
 
-## Load methylation data
+#load methylation data
 meth <- SlicedData$new()
 meth$fileDelimiter = " " # the blank character
 meth$fileOmitCharacters = "NA" # denote missing values
@@ -100,7 +100,7 @@ meth$fileSkipColumns = 1 # one column of row labels
 meth$fileSliceSize = 2000 # read file in slices of 2,000 rows
 meth$LoadFile(methylation_file_name)
 
-## Load gene expression data
+#load gene expression data
 gene = SlicedData$new()
 gene$fileDelimiter = " " # the blank character
 gene$fileOmitCharacters = "NA" # denote missing values;
@@ -109,7 +109,7 @@ gene$fileSkipColumns = 1 # one column of row labels
 gene$fileSliceSize = 2000 # read file in slices of 2,000 rows
 gene$LoadFile(expression_file_name)
 
-## Load covariates
+#load covariates
 cvrt = SlicedData$new()
 cvrt$fileDelimiter = " "      # the TAB character
 cvrt$fileOmitCharacters = "NA" # denote missing values;
@@ -122,7 +122,7 @@ if(length(covariates_file_name)>0) {
 cpgpos = read.table(cpg_location_file_name, header = TRUE, stringsAsFactors = FALSE)
 genepos = read.table(gene_location_file_name, header = TRUE, stringsAsFactors = FALSE)
 
-##run analysis
+#run analysis
 me_eqtm_become = Matrix_eQTL_main(
   snps = meth, # SlicedData object with methylation information. 
   gene = gene, # SlicedData object with gene expression information. 
