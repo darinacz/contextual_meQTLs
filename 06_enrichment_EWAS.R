@@ -53,7 +53,50 @@ ewas_initial<-merge(ewas_initial,cat,by.x="StudyID",by.y="Trait")
 table(ewas_top$Category)
 table(ewas_inital$Category)
 
-#comparisons for each domain via prop.test
+#comparisons for each domain were performed via Fisher's enrichment tests
+
+all<-as.data.frame(table(ewas_top$trait_domain))
+names(all)[1]<-'Cat'
+all$freq<-all$Freq/(dim(ewas_top)[1])
+all[,1]<-as.character(all[,1])
+all$Freq <- as.numeric(all$Freq)
 
 
+meta<-as.data.frame(table(ewas_initial$trait_domain))
+names(meta)[1]<-'Cat'
+meta$freq<-meta$Freq/(dim(gwas_initial)[1])
+meta<-as.data.frame(meta)
+meta$Cat<-as.character(meta$Cat)
+
+meta[33,]<-c("Anthropometrics","0","0")
+meta[34,]<-c("Dental","0","0")
+meta[35,]<-c("Metabolomics","0","0")
+meta[36,]<-c("Microbiome","0","0")
+meta[37,]<-c("Mortality","0","0")
+meta[38,]<-c("Nutritional","0","0")
+meta[39,]<-c("Social Support","0","0")
+meta<-meta[order(meta$Cat),]
+meta$Freq <- as.numeric(meta$Freq)
+
+all.equal(all[,1],meta[,1]) #TRUE
+
+
+results<-matrix(nrow=39, ncol=3)
+for (i in 1:39)
+{
+  results[i,1] <- meta$Cat[i]  
+  mod<-fisher.test(matrix(c(meta$Freq[i],dim(ewas_initial)[1]-meta$Freq[i],all$Freq[i],dim(ewas_top)[1]-all$Freq[i]),ncol=2), alternative="greater")
+  mod$p.value -> results[i,2]
+  mod$estimate -> results[i,3]}
+
+results<-as.data.frame(results)
+names(results)<-c("cat","p","OR")
+for (i in 2:3)
+{results[,i]<-as.numeric(results[,i])}
+
+#with freq > 1%
+index<-which(meta$freq<0.01)
+remove_cat<-meta$Cat[index]
+index<-which(results$cat %in% remove_cat)
+results[-index,]
 
