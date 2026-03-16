@@ -92,18 +92,27 @@ all_adapt$Freq <- as.numeric(all_adapt$Freq)
 
 all.equal(all_adapt[,1],meta_adapt[,1]) #TRUE
 
+#counts of events per group
 results<-matrix(nrow=21, ncol=3)
+
+events<-c(dim(gwas_initial)[1], dim(gwas_top)[1] - dim(gwas_initial)[1]) #this is always the same, number of overall obs per group
+
 for (i in 1:21)
-{
-  results[i,1] <- meta_adapt$Cat[i]  
-  mod<-fisher.test(matrix(c(meta_adapt$Freq[i],dim(gwas_initial)[1]-meta_adapt$Freq[i],all_adapt$Freq[i],dim(gwas_top)[1]-all_adapt$Freq[i]),ncol=2), alternative="greater")
-  mod$p.value -> results[i,2]
-  mod$estimate -> results[i,3]}
+  
+{exposure<-c(meta_adapt$Freq[i],all_adapt$Freq[i]-meta_adapt$Freq[i]) #make disjoint groups, so trait association in contmeQTLs and trait associations in non contmeQTLs
+mod<-poisson.test(exposure, events, alternative="greater")
+results[i,1] <- meta_adapt$Cat[i]
+results[i,2] <- mod$p.value
+results[i,3] <- mod$estimate}
 
 results<-as.data.frame(results)
-names(results)<-c("cat","p","OR")
+names(results)<-c("cat","p","rate_ratio")
 for (i in 2:3)
 {results[,i]<-as.numeric(results[,i])}
+
+
+
+
 
 
 
