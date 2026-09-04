@@ -29,7 +29,7 @@ snps<-unique(snps) #n=6,456 unique SNPs
 index<-which(all$SNPs %in% snps) 
 length(unique(all$SNPs[index])) ##n=43 SNPs out of 5,466 SNPs
 
-# is more than expected by chance?
+# is this more than expected by chance?
 #for this we need the full list
 snpnames<-read.table("all_SNPs.txt",sep="\t",header=T) #this is the list of all tested SNPs 
 snpnames<-unique(snpnames) #n=133,121 SNPs
