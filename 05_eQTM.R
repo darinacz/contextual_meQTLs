@@ -36,7 +36,7 @@ load("BetaSet_final.rda")
 beta<-exprs(BetaSet)
 
 #annotation of CpGs
-load("/Users/darina/annot_epic.Rdata")
+load("annot_epic.Rdata")
 index<-which(annot_epic$Name %in% rownames(beta)) 
 cpg_locations<-annot_epic[index,c("Name", "chr", "pos")]
 beta<-beta[order(rownames(beta)),]
