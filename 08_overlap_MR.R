@@ -1,4 +1,7 @@
-#are our CpGs enriched for MR results from Richardson et al.?
+#performed by darina@psych.mpg.de 
+
+#are conmeQTL CpGs enriched for MR results from Richardson et al.?
+
 #https://academic.oup.com/hmg/article/27/18/3293/5034850?login=false#120839527
 #systematic MR: meQTLs and complex traits
 #meQTLs in blood in 1,000 samples
@@ -21,7 +24,7 @@ length(which(cpgs_initial %in% mr$CpG.site)) #n=32: 0.6 %
 #is this significantly more?
 prop.test(x=c(32,517),n=c(5115,155640), alternative="greater") #p=0.00032
 
-#with which complex traits are these associated?
+#with which complex traits are these CpGs associated?
 #read in categories
 cat<-read.delim("cat_traits.txt",sep="\t",header=T)
 index<-(which(mr$CpG.site %in% cpgs_all)) #n=758
@@ -32,7 +35,7 @@ table(cat_all$category)
 index<-(which(cat_all$CpG.site %in% cpgs_initial))
 table(cat_all$category[index])
 
-#comparisons for each domain were run via Fisher's enrichment tests
+#comparisons for each domain were run via Poisson tests
 all_cpgs<-cat_all
 top_cpgs<-cat_all[index,]
 
@@ -51,7 +54,7 @@ names(top_cpg)[1]<-'cat'
 top_cpg<-as.data.frame(top_cpg)
 top_cpg$cat<-as.character(top_cpg$cat)
 
-#fill up the categories missing MR conmeQTLCpGs
+#fill up the categories missing MR conmeQTL CpGs
 top_cpg[10,]<-c("Cancer","0","0")
 top_cpg[11,]<-c("Cognitive","0","0")
 top_cpg[12,]<-c("Eating Disorders","0","0")
