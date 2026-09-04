@@ -1,4 +1,7 @@
 #performed by darina@psych.mpg.de
+
+#meta-analysis across cohorts
+
 #individual cohort results were split into chunks of 1 million combinations based on input list of CpG-SNP combinations
 #to ensure that the same combinations are present in the same chunk across cohorts
 #meta-analysis is carried out for chunks 1-10, 11-20 etc. as otherwise cpu memory is exceeded
