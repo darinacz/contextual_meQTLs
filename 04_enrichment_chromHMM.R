@@ -1,5 +1,6 @@
-#enrichment for chromHMM states
+#performed by darina@psych.mpg.de
 
+#test for enrichment for chromHMM states
 
 #this data was downloaded from http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/broadPeak/
 states <- readRDS("chromhmm_states.Rds")
