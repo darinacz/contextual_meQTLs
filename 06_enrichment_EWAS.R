@@ -1,3 +1,7 @@
+#performed by darina@psych.mpg.de 
+
+#compute overlap with EWAS hits
+
 library(data.table)
 library(ggplot2)
 library(ChIPseeker)
@@ -14,7 +18,7 @@ all<-read.table("results_combined_all.txt",sep="\t",header=T) #this is the list 
 ##results with p<e-04 are available here, studies of at least 100 individuals, epi-genome wide
 ##https://www.ewascatalog.org/download/
 ##all results with p<1e-04 are available###
-ewas<-fread("/Users/darina/ewascatalog-results_1902024.txt") #2,299,164 results
+ewas<-fread("ewascatalog-results_1902024.txt") #2,299,164 results
 ewas_top<-ewas[ewas$P<9e-8,] #1,257,086 results epigenome-wide significant results
 
 #all in meta
@@ -37,14 +41,6 @@ prop.test(x = c(157447, 4820), n = c(167600, 5120)) #p=0.5775 => n.s. diff. in o
 
 #compare distributions across the categories
 #categories where created using ChatGPT 3.5 and manually curated afterwards
-cat<-read_excel("GWAS_cat_ChatGPT.xlsx")
-gwas_top<-merge(gwas_top,cat,by.x="trait",by.y="Trait")
-gwas_initial<-merge(gwas_initial,cat,by.x="trait",by.y="Trait")
-table(gwas_top$Category)
-table(gwas_inital$Category)
-
-#compare distributions across the categories
-#categories where created using ChatGPT 3.5 and manually curated afterwards
 cat<-read_excel("EWAS_cat_ChatGPT.xlsx", header=F)
 
 ewas_top<-merge(ewas_top,cat,by.x="StudyID",by.y="Trait")
@@ -53,7 +49,7 @@ ewas_initial<-merge(ewas_initial,cat,by.x="StudyID",by.y="Trait")
 table(ewas_top$Category)
 table(ewas_inital$Category)
 
-#comparisons for each domain were performed via Fisher's enrichment tests
+#comparisons for each domain were performed via Poisson tests
 
 all<-as.data.frame(table(ewas_top$trait_domain))
 names(all)[1]<-'Cat'
@@ -61,13 +57,13 @@ all$freq<-all$Freq/(dim(ewas_top)[1])
 all[,1]<-as.character(all[,1])
 all$Freq <- as.numeric(all$Freq)
 
-
 meta<-as.data.frame(table(ewas_initial$trait_domain))
 names(meta)[1]<-'Cat'
 meta$freq<-meta$Freq/(dim(gwas_initial)[1])
 meta<-as.data.frame(meta)
 meta$Cat<-as.character(meta$Cat)
 
+#add categories for which we have no hits in the contextual meQTLs
 meta[33,]<-c("Anthropometrics","0","0")
 meta[34,]<-c("Dental","0","0")
 meta[35,]<-c("Metabolomics","0","0")
