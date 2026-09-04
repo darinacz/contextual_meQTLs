@@ -1,3 +1,7 @@
+#performed by darina@psych.mpg.de 
+
+#compute overlap with GWAS hits
+
 library(data.table)
 library(ggplot2)
 library(ChIPseeker)
@@ -47,7 +51,8 @@ gwas_initial<-merge(gwas_initial,cat,by.x="trait",by.y="Trait")
 table(gwas_top$Category)
 table(gwas_inital$Category)
 
-#comparisons for each domain were performed via Fisher's enrichment tests
+#comparisons for each domain were performed via Poisson tests
+
 all<-as.data.frame(table(gwas_top$domain))
 names(all)[1]<-'Cat'
 all$freq<-all$Freq/(dim(gwas_top)[1])
@@ -59,7 +64,8 @@ names(meta)[1]<-'Cat'
 meta$freq<-meta$Freq/(dim(gwas_initial)[1])
 meta<-as.data.frame(meta)
 meta$Cat<-as.character(meta$Cat)
-#fill up the categories missing in the contmeQTLs
+
+#fill up the categories missing in the contmeQTL SNPs
 meta[34,]<-c("Geographical","0","0")
 meta[35,]<-c("Trauma","0","0")
 meta<-meta[order(meta$Cat),]
@@ -68,10 +74,7 @@ meta$Freq <- as.numeric(meta$Freq)
 all.equal(all[,1],meta[,1]) #TRUE
 
 #if relative frequency less than 1%, put these into the "other" category
-#compare also to categories available in the MR-analysis as we want to put these results next to each other
-which(meta$freq<0.01 & ! meta$Cat=="Puberty related" & ! meta$Cat=="Reproductive" & !meta$Cat=="Gastrointestinal") -> index
-#leave puberty & reproductive & gastro in as this is available in the MR analysis
-remove_cat<-meta$Cat[index]
+
 meta_adapt<-meta
 index<-which(meta_adapt$Cat %in% remove_cat)
 meta_adapt[36,]<-c("other",0,0)
