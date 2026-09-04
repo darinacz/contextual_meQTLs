@@ -1,5 +1,5 @@
 #enrichment for chromHMM states
-setwd("/Users/darina/Contextual_meQTLs/chromHMM/")
+
 
 #this data was downloaded from http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/broadPeak/
 states <- readRDS("chromhmm_states.Rds")
