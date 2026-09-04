@@ -1,3 +1,6 @@
+#performed by Dave Juntill and darina@psych.mpg.de 
+#based on a script from Linda Dieckmann
+
 #compute eQTMs 
 
 library(biomaRt)
