@@ -1,3 +1,7 @@
+#performed by darina@psych.mpg.de
+
+#test for enrichment for vmeQTLs
+
 #read in list of significant contmeQTLs
 all<-read.table("results_combined_all.txt",sep="\t",header=T) #n=5,120 contmeQTLs
 
