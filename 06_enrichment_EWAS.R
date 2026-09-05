@@ -50,6 +50,7 @@ table(ewas_top$Category)
 table(ewas_inital$Category)
 
 #comparisons for each domain were performed via Poisson tests
+#we compare the rate of EWAS associations in the specific domain for contmeQTL CpGs as compared to non-contmeQTL CpGs
 
 all<-as.data.frame(table(ewas_top$trait_domain))
 names(all)[1]<-'Cat'
