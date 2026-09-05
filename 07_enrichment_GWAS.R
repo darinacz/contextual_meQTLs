@@ -52,6 +52,7 @@ table(gwas_top$Category)
 table(gwas_inital$Category)
 
 #comparisons for each domain were performed via Poisson tests
+#we compare the rate of GWAS associations in the specific domain for contmeQTL SNPs as compared to non-contmeQTL SNPs
 
 all<-as.data.frame(table(gwas_top$domain))
 names(all)[1]<-'Cat'
